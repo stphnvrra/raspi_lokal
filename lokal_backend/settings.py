@@ -1,6 +1,7 @@
 """
 Django settings for LoKal backend.
 Optimized for Raspberry Pi 4B (4GB RAM) deployment.
+# Updated to resolve corruption issues
 """
 
 import os
