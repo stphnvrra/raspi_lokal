@@ -11,6 +11,8 @@ echo "✓ Made start_lokal.sh executable"
 if [ -d "/home/lokal/Desktop" ]; then
     cp /home/lokal/Desktop/loKal/LoKal.desktop /home/lokal/Desktop/
     chmod +x /home/lokal/Desktop/LoKal.desktop
+    # Mark as trusted (needed for some Raspbian versions)
+    gio set /home/lokal/Desktop/LoKal.desktop metadata::trusted true || true
     echo "✓ Added LoKal shortcut to Desktop"
 else
     echo "⚠ Desktop directory not found, skipping desktop shortcut"
@@ -35,8 +37,8 @@ echo "=========================================="
 echo "Setup complete!"
 echo "=========================================="
 echo "You can now:"
-echo "1. Double-click 'LoKal Educational AI' icon on Desktop"
-echo "2. Find 'LoKal Educational AI' in application menu"
+echo "1. Double-click 'LoKal' icon on Desktop"
+echo "2. Find 'LoKal' in application menu"
 echo "3. Run: /home/lokal/Desktop/loKal/start_lokal.sh"
 echo ""
 echo "To enable autostart on boot, edit this script"
