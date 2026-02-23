@@ -126,7 +126,7 @@ CORS_ALLOW_ALL_ORIGINS = True  # Since this runs locally on the Pi
 CORS_ALLOW_CREDENTIALS = True  # Allow cookies for session auth
 
 # CSRF settings for session auth with separate frontend
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://192.168.4.1:8000', 'http://raspilokal.com']
 CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SAMESITE = 'Lax'
 
@@ -148,7 +148,7 @@ SESSION_COOKIE_SAMESITE = 'Lax'
 #   - phi3:mini     (~2.3GB)  - Too large, causes memory pressure
 #   - Any 7B+ model           - Requires 8GB+ RAM
 #
-OLLAMA_HOST = os.environ.get('OLLAMA_HOST', 'http://localhost:11434')
+# OLLAMA_HOST = os.environ.get('OLLAMA_HOST', 'http://localhost:11434')
 OLLAMA_MODEL = os.environ.get('OLLAMA_MODEL', 'qwen2.5:0.5b')  # Optimized for 4GB RAM stability
 OLLAMA_TIMEOUT = int(os.environ.get('OLLAMA_TIMEOUT', '120'))  # Longer timeout for Pi
 
