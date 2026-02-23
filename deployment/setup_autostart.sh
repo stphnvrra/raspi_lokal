@@ -1,46 +1,47 @@
 #!/bin/bash
 # Setup script for LoKal desktop launcher and autostart
+# Run as: sudo ./deployment/setup_autostart.sh
 
-echo "Setting up LoKal launcher..."
+echo "-------------------------------------------------"
+echo "  LoKal Launcher Setup"
+echo "-------------------------------------------------"
 
-# Make start script executable
-chmod +x /home/lokal/Desktop/loKal/start_lokal.sh
-echo "✓ Made start_lokal.sh executable"
-
-# Copy desktop file to user's desktop
-if [ -d "/home/lokal/Desktop" ]; then
-    cp /home/lokal/Desktop/loKal/LoKal.desktop /home/lokal/Desktop/
-    chmod +x /home/lokal/Desktop/LoKal.desktop
-    # Mark as trusted (needed for some Raspbian versions)
-    gio set /home/lokal/Desktop/LoKal.desktop metadata::trusted true || true
-    echo "✓ Added LoKal shortcut to Desktop"
+# 1. Make start script executable
+if [ -f "/home/lokal/Desktop/loKal/start_lokal.sh" ]; then
+    chmod +x /home/lokal/Desktop/loKal/start_lokal.sh
+    echo "✓ Made start_lokal.sh executable"
 else
-    echo "⚠ Desktop directory not found, skipping desktop shortcut"
+    echo "⚠ start_lokal.sh not found at /home/lokal/Desktop/loKal/"
 fi
 
-# Copy to applications directory for launcher menu
-mkdir -p /home/lokal/.local/share/applications
-cp /home/lokal/Desktop/loKal/LoKal.desktop /home/lokal/.local/share/applications/
-chmod +x /home/lokal/.local/share/applications/LoKal.desktop
-echo "✓ Added LoKal to application menu"
+# 2. Copy and Trust Desktop file
+if [ -d "/home/lokal/Desktop" ]; then
+    echo "Configuring Desktop shortcut..."
+    
+    # Sanitize the file (remove Windows line endings just in case)
+    sed 's/\r$//' /home/lokal/Desktop/loKal/LoKal.desktop > /home/lokal/Desktop/LoKal.desktop
+    
+    # Set permissions
+    chmod +x /home/lokal/Desktop/LoKal.desktop
+    
+    # Mark as trusted (Required for Raspberry Pi OS Bookworm/LXDE)
+    if command -v gio >/dev/null 2>&1; then
+        echo "Marking desktop file as trusted..."
+        gio set /home/lokal/Desktop/LoKal.desktop metadata::trusted true || true
+    fi
+    
+    # Optional: Also copy to Applications menu
+    mkdir -p /home/lokal/.local/share/applications/
+    cp /home/lokal/Desktop/LoKal.desktop /home/lokal/.local/share/applications/
+    
+    echo "✓ LoKal shortcut added to Desktop and Menu"
+else
+    echo "⚠ Desktop directory not found. Shortcut skipped."
+fi
 
-# Optional: Setup autostart (commented out by default)
-# Uncomment the lines below if you want LoKal to start automatically on boot
-# echo ""
-# echo "Setting up autostart..."
-# mkdir -p /home/lokal/.config/autostart
-# cp /home/lokal/Desktop/loKal/LoKal.desktop /home/lokal/.config/autostart/
-# echo "✓ LoKal will start automatically on login"
-
-echo ""
-echo "=========================================="
-echo "Setup complete!"
-echo "=========================================="
-echo "You can now:"
-echo "1. Double-click the 'LoKal' icon on your Desktop"
-echo "2. Find 'LoKal' in the application menu"
-echo "3. Run: /home/lokal/Desktop/loKal/start_lokal.sh"
-echo ""
-echo "This icon will automatically turn on Ollama, Django,"
-echo "the Wi-Fi Hotspot, and open your browser."
-echo "=========================================="
+echo "-------------------------------------------------"
+echo "  Setup Complete!"
+echo "-------------------------------------------------"
+echo "  You can now double-click the 'LoKal' icon"
+echo "  on your desktop to start the entire system."
+echo "-------------------------------------------------"

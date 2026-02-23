@@ -1,9 +1,10 @@
 [Desktop Entry]
-Name=LoKal
-Comment=Offline AI Learning Assistant
-Exec=/home/lokal/Desktop/loKal/start_lokal.sh
-Icon=/home/lokal/Desktop/loKal/logo.png
-Terminal=true
+Encoding=UTF-8
+Version=1.0
 Type=Application
+Terminal=true
+Exec=/home/lokal/Desktop/loKal/start_lokal.sh
+Name=LoKal
+Icon=/home/lokal/Desktop/loKal/logo.png
 Categories=Education;
-StartupNotify=true
+Path=/home/lokal/Desktop/loKal
