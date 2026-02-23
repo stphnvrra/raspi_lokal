@@ -82,12 +82,12 @@ $PYTHON_VERSION -m venv venv
 source venv/bin/activate
 
 # Upgrade pip
-log_info "Upgrading pip..."
-pip install --upgrade pip wheel setuptools
+log_info "Upgrading pip (with retries)..."
+pip install --upgrade --default-timeout=100 --retries 10 --no-cache-dir pip wheel setuptools
 
 # Install Python dependencies
-log_info "Installing Python dependencies..."
-pip install -r requirements.txt
+log_info "Installing Python dependencies (with retries)..."
+pip install --default-timeout=100 --retries 10 --no-cache-dir -r requirements.txt
 
 # Create logs directory
 mkdir -p logs
@@ -160,7 +160,8 @@ ollama pull qwen2.5:0.5b
 log_info "Downloading Vosk speech recognition model..."
 cd models
 if [ ! -d "vosk-model-small-en-us-0.15" ]; then
-    wget -q --show-progress https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
+    log_info "Downloading Vosk model (resume enabled)..."
+    wget -q --show-progress --continue --tries=10 https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
     unzip -q vosk-model-small-en-us-0.15.zip
     rm vosk-model-small-en-us-0.15.zip
 else
