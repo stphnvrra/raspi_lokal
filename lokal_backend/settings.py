@@ -19,7 +19,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-lokal-dev-key-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,0.0.0.0').split(',')
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,raspberrypi.local,raspilokal.com,192.168.4.1,0.0.0.0').split(',')
 
 # Application definition
 INSTALLED_APPS = [
@@ -135,20 +135,7 @@ SESSION_COOKIE_SAMESITE = 'Lax'
 # ========================
 
 # Ollama configuration for Raspberry Pi 4B (4GB RAM)
-# 
-# RECOMMENDED FOR STABILITY (4GB RAM):
-#   - tinyllama     (~637MB)  - MOST STABLE, best for demos/presentations
-#   - qwen2.5:0.5b  (~400MB)  - Very stable, smaller model
-#
-# OPTIONAL (if you have more headroom):
-#   - llama3.2:1b   (~1.3GB)  - Better quality, still fits
-#   - gemma:2b      (~1.4GB)  - Good balance, monitor RAM
-#
-# NOT RECOMMENDED FOR 4GB (will crash with Django+TTS+STT):
-#   - phi3:mini     (~2.3GB)  - Too large, causes memory pressure
-#   - Any 7B+ model           - Requires 8GB+ RAM
-#
-# OLLAMA_HOST = os.environ.get('OLLAMA_HOST', 'http://localhost:11434')
+OLLAMA_HOST = os.environ.get('OLLAMA_HOST', 'http://localhost:11434')
 OLLAMA_MODEL = os.environ.get('OLLAMA_MODEL', 'qwen2.5:0.5b')  # Optimized for 4GB RAM stability
 OLLAMA_TIMEOUT = int(os.environ.get('OLLAMA_TIMEOUT', '120'))  # Longer timeout for Pi
 
@@ -187,7 +174,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs' / 'lokal.log',
+            'filename': str(BASE_DIR / 'logs' / 'lokal.log'),
             'formatter': 'verbose',
         },
         'console': {
