@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=LoKal
 Comment=Offline AI Learning Assistant
-Exec=/home/pi/lokal/start_lokal.sh
-Icon=/home/pi/lokal/logo.png
+Exec=/home/lokal/Desktop/loKal/start_lokal.sh
+Icon=/home/lokal/Desktop/loKal/logo.png
 Terminal=true
 Type=Application
 Categories=Education;
