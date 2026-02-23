@@ -1,0 +1,24 @@
+# Django
+Django>=4.2,<5.0
+djangorestframework>=3.14.0
+
+# Database
+# SQLite is built into Python
+
+# Ollama client
+requests>=2.31.0
+
+# Speech services
+pyttsx3>=2.90
+vosk>=0.3.40
+soundfile>=0.12.1
+# Note: ffmpeg is required for WebM audio conversion, install via system package manager
+
+# Production server
+gunicorn>=21.2.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# CORS (for frontend integration)
+django-cors-headers>=4.3.0

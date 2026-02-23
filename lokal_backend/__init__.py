@@ -1,0 +1,1 @@
+# LoKal Backend - Django settings

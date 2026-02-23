@@ -1,0 +1,56 @@
+INFO 2026-02-06 09:04:56,676 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-06 09:06:40,222 log Not Found: /favicon.ico
+INFO 2026-02-06 09:22:38,947 autoreload Watching for file changes with StatReloader
+INFO 2026-02-06 09:31:41,173 autoreload Watching for file changes with StatReloader
+INFO 2026-02-06 09:39:52,908 stt_service Loading Vosk model from: /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/models/vosk-model-small-en-us-0.15
+INFO 2026-02-06 09:42:09,658 tts_service Generated TTS audio using Mac 'say': tts/tts_b50719174eef.wav
+WARNING 2026-02-06 09:42:09,805 log Not Found: /favicon.ico
+INFO 2026-02-06 09:42:26,477 tts_service Generated TTS audio using Mac 'say': tts/tts_bf5640775344.wav
+INFO 2026-02-06 09:44:47,173 autoreload /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/api/services/stt_service.py changed, reloading.
+INFO 2026-02-06 09:44:49,029 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-06 09:45:17,452 log Not Found: /favicon.ico
+INFO 2026-02-06 09:45:22,664 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-06 09:46:13,303 log Not Found: /favicon.ico
+INFO 2026-02-06 09:47:15,101 stt_service Loading Vosk model from: /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/models/vosk-model-small-en-us-0.15
+INFO 2026-02-06 09:47:20,514 stt_service Saved uploaded audio: /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_dec2ebfa2e97.webm
+INFO 2026-02-06 09:47:25,139 stt_service Converted /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_dec2ebfa2e97.webm to WAV format using ffmpeg
+INFO 2026-02-06 09:47:36,042 stt_service Transcribed: hello hello hello low hello...
+INFO 2026-02-06 09:48:41,020 stt_service Saved uploaded audio: /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_97923178fa01.webm
+INFO 2026-02-06 09:48:51,453 stt_service Converted /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_97923178fa01.webm to WAV format using ffmpeg
+INFO 2026-02-06 09:49:14,159 stt_service Transcribed: don't ah...
+WARNING 2026-02-06 09:51:04,321 log Not Found: /favicon.ico
+INFO 2026-02-06 09:51:14,382 stt_service Saved uploaded audio: /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_44af5171b0c0.webm
+INFO 2026-02-06 09:51:14,937 stt_service Converted /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_44af5171b0c0.webm to WAV format using ffmpeg
+INFO 2026-02-06 09:51:21,059 stt_service Transcribed: no logo...
+INFO 2026-02-06 09:51:47,447 stt_service Saved uploaded audio: /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_2803490ae5a0.webm
+INFO 2026-02-06 09:51:47,789 stt_service Converted /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_2803490ae5a0.webm to WAV format using ffmpeg
+INFO 2026-02-06 09:51:50,336 stt_service Transcribed: no no no...
+INFO 2026-02-06 09:52:04,023 tts_service Generated TTS audio using Mac 'say': tts/tts_88c9d67a387f.wav
+WARNING 2026-02-06 09:52:04,079 log Not Found: /favicon.ico
+INFO 2026-02-06 09:52:15,960 views New user registered: erer
+WARNING 2026-02-06 09:52:19,953 log Unauthorized: /api/auth/login/
+INFO 2026-02-06 09:52:22,567 views User logged in: erer
+INFO 2026-02-06 09:53:09,670 tts_service Generated TTS audio using Mac 'say': tts/tts_14d2ce7a1b82.wav
+WARNING 2026-02-06 09:53:09,968 log Not Found: /favicon.ico
+INFO 2026-02-06 09:53:13,743 stt_service Saved uploaded audio: /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_e4f127efc26d.webm
+INFO 2026-02-06 09:53:15,297 stt_service Converted /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_e4f127efc26d.webm to WAV format using ffmpeg
+INFO 2026-02-06 09:53:19,972 stt_service Transcribed: no we're not know you love your...
+INFO 2026-02-06 09:59:56,963 stt_service Saved uploaded audio: /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_5af127df9d3a.webm
+INFO 2026-02-06 09:59:57,182 stt_service Converted /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_5af127df9d3a.webm to WAV format using ffmpeg
+INFO 2026-02-06 10:00:00,056 stt_service Transcribed: hello hello how are you...
+INFO 2026-02-06 10:00:14,277 stt_service Saved uploaded audio: /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_5d56e1af9131.webm
+INFO 2026-02-06 10:00:14,449 stt_service Converted /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_5d56e1af9131.webm to WAV format using ffmpeg
+INFO 2026-02-06 10:00:17,291 stt_service Transcribed: this your name low one sooner dream...
+INFO 2026-02-06 10:00:33,588 stt_service Saved uploaded audio: /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_ec4233178a3d.webm
+INFO 2026-02-06 10:00:33,849 stt_service Converted /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_ec4233178a3d.webm to WAV format using ffmpeg
+INFO 2026-02-06 10:00:35,497 stt_service Transcribed: what this month...
+INFO 2026-02-06 10:00:42,891 stt_service Saved uploaded audio: /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_42aa486b4d65.webm
+INFO 2026-02-06 10:00:42,972 stt_service Converted /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_42aa486b4d65.webm to WAV format using ffmpeg
+INFO 2026-02-06 10:00:45,840 stt_service Transcribed: what is mathematics...
+INFO 2026-02-06 10:01:42,257 stt_service Saved uploaded audio: /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_12241da38a48.webm
+INFO 2026-02-06 10:01:42,713 stt_service Converted /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_12241da38a48.webm to WAV format using ffmpeg
+INFO 2026-02-06 10:01:45,888 stt_service Transcribed: his english at is bull crap...
+INFO 2026-02-06 10:01:56,314 stt_service Saved uploaded audio: /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_d1e92cfdbbd3.webm
+INFO 2026-02-06 10:01:56,704 stt_service Converted /Users/stephen/Documents/[00] School Works/4th Year/2nd Sem/It major 4/lokal v3 (previous)/media/uploads/audio_d1e92cfdbbd3.webm to WAV format using ffmpeg
+INFO 2026-02-06 10:02:01,260 stt_service Transcribed: what is too...
+INFO 2026-02-07 06:33:57,125 autoreload Watching for file changes with StatReloader
