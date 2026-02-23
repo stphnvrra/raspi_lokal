@@ -2,7 +2,7 @@
 # Script to undo/revert changes made by setup_static_ip.sh and setup_dns_proxy.sh
 # Run as root: sudo ./deployment/revert_network_changes.sh
 
-set -e
+# set -e  # Removed to prevent exiting on minor errors
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -48,20 +48,29 @@ systemctl restart nginx || true
 INTERFACE="wlan0"
 
 if command -v nmcli >/dev/null 2>&1; then
-    log_info "NetworkManager detected. Reverting to DHCP (Automatic)..."
+    log_info "NetworkManager detected. Reverting changes..."
     
-    # Get current connection name for the interface
-    CON_NAME=$(nmcli -t -f NAME,DEVICE connection show --active | grep ":$INTERFACE" | cut -d: -f1 || echo "")
+    # 1. Specifically delete the LoKal Hotspot if it exists
+    if nmcli con show "LoKal-Hotspot" >/dev/null 2>&1; then
+        log_info "Removing LoKal-Hotspot connection..."
+        nmcli con delete "LoKal-Hotspot" || true
+    fi
+
+    # 2. Revert the active connection on wlan0 to DHCP
+    CON_NAME=$(nmcli -t -f NAME,DEVICE connection show --active | grep ":$INTERFACE" | cut -d: -f1 | head -n 1 || echo "")
     
     if [ -n "$CON_NAME" ]; then
-        nmcli con mod "$CON_NAME" ipv4.method auto
-        nmcli con mod "$CON_NAME" ipv4.addresses ""
-        nmcli con mod "$CON_NAME" ipv4.gateway ""
-        nmcli con mod "$CON_NAME" ipv4.dns ""
-        log_info "Restarting connection '$CON_NAME'..."
-        nmcli con up "$CON_NAME"
+        log_info "Setting connection '$CON_NAME' back to Automatic (DHCP)..."
+        nmcli con mod "$CON_NAME" ipv4.method auto ipv4.addresses "" ipv4.gateway "" ipv4.dns "" || true
+        log_info "Restarting connection..."
+        nmcli con up "$CON_NAME" || true
     else
-        log_warn "No active connection found for $INTERFACE to revert."
+        log_warn "No active connection found on $INTERFACE. Attempting to bring up a default Wi-Fi..."
+        # Try to find any other Wi-Fi connection that isn't the hotspot
+        OTHER_CON=$(nmcli -t -f NAME connection show | grep -v "LoKal-Hotspot" | head -n 1 || echo "")
+        if [ -n "$OTHER_CON" ]; then
+            nmcli con up "$OTHER_CON" || true
+        fi
     fi
     
 elif [ -f /etc/dhcpcd.conf ]; then
