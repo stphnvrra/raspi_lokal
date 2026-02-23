@@ -152,9 +152,20 @@ sudo systemctl enable ollama || true
 sudo systemctl start ollama || true
 sleep 5
 
-# Pull qwen2.5:0.5b (optimized for 4GB RAM stability)
-log_info "Pulling Qwen 2.5 0.5B model (this may take a while)..."
-ollama pull qwen2.5:0.5b
+# Pull qwen2.5:0.5b (optimized for 4GB RAM stability, with retries)
+log_info "Pulling Qwen 2.5 0.5B model (this may take a while, with retries)..."
+MAX_RETRIES=5
+RETRY_COUNT=0
+until ollama pull qwen2.5:0.5b || [ $RETRY_COUNT -eq $MAX_RETRIES ]; do
+    RETRY_COUNT=$((RETRY_COUNT + 1))
+    log_warn "Ollama pull failed. Retrying ($RETRY_COUNT/$MAX_RETRIES)..."
+    sleep 5
+done
+
+if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
+    log_error "Failed to pull Ollama model after $MAX_RETRIES attempts. Please check your internet connection."
+    exit 1
+fi
 
 # Download Vosk model
 log_info "Downloading Vosk speech recognition model..."
