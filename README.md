@@ -1,55 +1,87 @@
-# LoKal Backend - Django Project for Raspberry Pi 4B
+# 🤖 LoKal: Offline Educational AI for Remote Learning
 
-A production-ready Django backend for LoKal, an offline educational AI device.
+LoKal is a production-ready, standalone educational AI system designed specifically for **Raspberry Pi 4B**. It provides students in remote areas with access to an intelligent assistant (Math, Science, English) without requiring an internet connection.
 
-## Requirements
+![LoKal Logo](static/img/logo.png)
 
-- Python 3.9+
-- Raspberry Pi 4B (4GB RAM)
-- Ollama (for local AI)
+---
 
-## Quick Setup
+## 🌟 Key Features
 
-```bash
-# Create virtual environment
-python3 -m venv venv
-source venv/bin/activate
+*   **Offline First**: Runs completely offline using **Ollama** and **Qwen 2.5 0.5B** AI models.
+*   **Voice Interactive**: Includes **Speech-to-Text (Vosk)** and **Text-to-Speech (pyttsx3)**.
+*   **Standalone Hotspot**: Automatically turns the Raspberry Pi into a Wi-Fi Access Point.
+*   **Secure Access**: Implements **HTTPS** to ensure microphone access works on all mobile devices.
+*   **Responsive UI**: Optimized for 7-inch Raspberry Pi displays (800x480) and mobile phones.
+*   **One-Click Startup**: Includes a desktop launcher and auto-start on boot functionality.
 
-# Install dependencies
-pip install -r requirements.txt
+---
 
-# Run migrations
-python manage.py migrate
+## 🛠️ Hardware Requirements
 
-# Create superuser (optional)
-python manage.py createsuperuser
+*   **Device**: Raspberry Pi 4B (4GB or 8GB RAM recommended).
+*   **Storage**: 16GB+ MicroSD Card (Class 10).
+*   **Display**: Raspberry Pi Touch Display (Optional) or any HDMI monitor.
+*   **Microphone**: USB Microphone for voice interaction.
 
-# Start development server
-python manage.py runserver 0.0.0.0:8000
-```
+---
 
-## Production Deployment
+## 🚀 One-Command Installation (Zero-to-Hero)
 
-See `deployment/README.md` for production setup with Gunicorn and systemd.
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/ask/` | Submit text question |
-| POST | `/api/ask/voice/` | Submit voice audio |
-| POST | `/api/tts/` | Text to speech |
-| GET | `/api/conversations/` | List conversations |
-| GET | `/api/health/` | Health check |
-
-## Ollama Setup
-
-Install Ollama on Raspberry Pi and pull the recommended model:
+The installation process is now fully automated. On a fresh Raspberry Pi OS (64-bit), run:
 
 ```bash
-# Install Ollama
-curl -fsSL https://ollama.ai/install.sh | sh
+# 1. Clone or copy this folder to Desktop
+cd /home/lokal/Desktop/loKal
 
-# Pull Llama 3.2 1B (recommended for 4GB RAM)
-ollama pull llama3.2:1b
+# 2. Run the unified installer
+sudo ./deployment/install.sh
 ```
+
+**What this does:**
+1.  Installs all system dependencies (Python, FFmpeg, etc.).
+2.  Sets up the AI environment (Ollama + Models).
+3.  Configures the **Wi-Fi Hotspot** (`LoKal-AI-Hotspot`).
+4.  Creates the **Desktop Icon**.
+5.  Generates **SSL Certificates** for secure access.
+
+---
+
+## 📱 How to Connect & Use
+
+### From the Raspberry Pi:
+- Simply double-click the **LoKal** icon on the desktop.
+- It will automatically start the services and open the browser.
+
+### From a Mobile Phone/Tablet:
+1.  **Join Wi-Fi**: Connect to `LoKal-AI-Hotspot` (Password: `lokal1234`).
+2.  **Browse**: Open your browser and go to:
+    > **https://192.168.4.1:8000**
+3.  **Security Note**: Since we use self-signed certificates, click **"Advanced"** and **"Proceed Anyway"** to enable the microphone.
+
+---
+
+## 📁 Project Structure
+
+```text
+loKal/
+├── api/                # Django REST API (AI, TTS, STT logic)
+├── deployment/         # Installation and networking scripts
+├── lokal_backend/      # Core Django settings
+├── static/             # CSS, JS, and Images
+├── templates/          # HTML Templates (Responsive)
+├── models/             # Vosk Speech models
+├── certs/              # SSL Certificates
+├── lokal.sqlite3       # Database (Tracked)
+└── start_lokal.sh      # Main startup script
+```
+
+---
+
+## 🎓 About the Project
+This project was developed as part of **IT Major 4** requirements for the **4th Year, 2nd Semester**. It aims to bridge the digital divide by providing intelligent educational tools to the most remote communities.
+
+---
+
+## 📜 License
+This project is intended for educational purposes.

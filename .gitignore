@@ -1,4 +1,2 @@
 venv/
-# Django
-# We are NOT ignoring the database as requested by the user
 *.log
