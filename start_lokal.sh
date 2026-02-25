@@ -37,10 +37,23 @@ source venv/bin/activate
 # Check if Gunicorn/Systemd service is handled already
 if systemctl is-active --quiet lokal; then
     echo "LoKal service is already running via systemd."
+    USE_HTTPS=true # Assume systemd is configured for HTTPS or we'll check the URL anyway
 else
     echo "Starting LoKal server manually..."
-    # Start the server in the background
-    python manage.py runserver 0.0.0.0:8000 &
+    # Generate private key and self-signed certificate in one command
+    # Valid for 365 days
+    openssl req -x509 -newkey rsa:4096 -keyout certs/key.pem -out certs/cert.pem -days 365 -nodes -subj "/C=PH/ST=MetroManila/L=Manila/O=LoKal/OU=Education/CN=192.168.4.1" 2>/dev/null || true
+    
+    # Check for SSL certificates
+    if [ -f "certs/cert.pem" ] && [ -f "certs/key.pem" ]; then
+        echo "SSL certificates found. Starting in HTTPS mode..."
+        python manage.py runsslserver --certificate certs/cert.pem --key certs/key.pem 0.0.0.0:8000 &
+        USE_HTTPS=true
+    else
+        echo "SSL certificates not found. Starting in HTTP mode..."
+        python manage.py runserver 0.0.0.0:8000 &
+        USE_HTTPS=false
+    fi
     SERVER_PID=$!
     # Wait for server to start
     echo "Waiting for server to start..."
@@ -49,17 +62,21 @@ fi
 
 # Open the browser automatically
 echo "Opening browser..."
-URL="http://raspilokal.com"
-if ! curl -s --head $URL | head -n 1 | grep "200 OK" > /dev/null; then
+if [ "$USE_HTTPS" = true ]; then
+    URL="https://localhost:8000"
+else
     URL="http://localhost:8000"
 fi
 
 echo "Navigating to $URL"
 
+# Common browser flags for development/Pi
+BROWSER_FLAGS="--kiosk --ignore-certificate-errors"
+
 if command -v chromium-browser &> /dev/null; then
-    chromium-browser --kiosk "$URL" &
+    chromium-browser $BROWSER_FLAGS "$URL" &
 elif command -v chromium &> /dev/null; then
-    chromium --kiosk "$URL" &
+    chromium $BROWSER_FLAGS "$URL" &
 else
     echo "Chromium not found. Please open $URL manually."
 fi

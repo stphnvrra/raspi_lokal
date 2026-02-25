@@ -20,7 +20,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-lokal-dev-key-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,raspberrypi.local,raspilokal.com,192.168.4.1,0.0.0.0').split(',')
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,192.168.4.1,0.0.0.0').split(',')
 
 # Application definition
 INSTALLED_APPS = [
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'corsheaders',
     # Local apps
     'api',
+    'sslserver',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +54,7 @@ ROOT_URLCONF = 'lokal_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -95,6 +96,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Media files (uploaded audio, TTS output)
@@ -127,7 +129,7 @@ CORS_ALLOW_ALL_ORIGINS = True  # Since this runs locally on the Pi
 CORS_ALLOW_CREDENTIALS = True  # Allow cookies for session auth
 
 # CSRF settings for session auth with separate frontend
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://192.168.4.1:8000', 'http://raspilokal.com']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://192.168.4.1:8000', 'https://localhost:8000', 'https://127.0.0.1:8000', 'https://192.168.4.1:8000']
 CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SAMESITE = 'Lax'
 

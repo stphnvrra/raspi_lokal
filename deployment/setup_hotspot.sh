@@ -50,7 +50,7 @@ nmcli con modify "LoKal-Hotspot" 802-11-wireless-security.psk "$PASSWORD"
 nmcli con modify "LoKal-Hotspot" ipv4.method manual ipv4.addresses "$HOTSPOT_IP/24"
 nmcli con modify "LoKal-Hotspot" ipv6.method ignore
 
-# 4. Configure dnsmasq for DHCP and local DNS
+# 4. Configure dnsmasq for DHCP
 log_info "Configuring dnsmasq for Hotspot..."
 cat > /etc/dnsmasq.d/lokal-hotspot.conf << EOF
 # DHCP Configuration
@@ -58,9 +58,6 @@ interface=wlan0
 dhcp-range=192.168.4.10,192.168.4.100,255.255.255.0,24h
 dhcp-option=option:router,$HOTSPOT_IP
 dhcp-option=option:dns-server,$HOTSPOT_IP
-
-# LoKal Domain Mapping
-address=/raspilokal.com/$HOTSPOT_IP
 EOF
 
 # 5. Restart services
@@ -73,7 +70,7 @@ log_info "  Wi-Fi Hotspot Setup Complete!"
 log_info "================================================="
 log_info "  1. Connect your device to: $SSID"
 log_info "  2. Password: $PASSWORD"
-log_info "  3. Browse: http://raspilokal.com"
+log_info "  3. Browse: https://$HOTSPOT_IP:8000"
 log_info "================================================="
 log_info "  NOTE: This will disable Wi-Fi internet access "
 log_info "  on the Pi as it is now acting as an Access Point."

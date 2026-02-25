@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,14 +9,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <img src="logo.png" alt="LoKal Logo" class="sidebar-logo">
+            <img src="{% static 'img/logo.png' %}" alt="LoKal Logo" class="sidebar-logo">
             <button class="new-chat-btn" id="newChatBtn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -86,7 +87,7 @@
     <main class="main-content">
         <!-- Welcome Screen (shown when no messages) -->
         <div class="welcome-screen" id="welcomeScreen">
-            <img src="logo.png" alt="LoKal" class="welcome-logo">
+            <img src="{% static 'img/logo.png' %}" alt="LoKal" class="welcome-logo">
             <h1 class="welcome-title">Hello! I'm LoKal</h1>
             <p class="welcome-subtitle">Your offline learning assistant. Ask me anything about Math, Science, English,
                 or any subject!</p>
@@ -165,7 +166,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 
 </html>

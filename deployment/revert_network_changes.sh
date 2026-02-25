@@ -25,9 +25,9 @@ log_info "-------------------------------------------------"
 # 1. Revert DNS/Proxy Changes
 log_info "Checking for dnsmasq and nginx configurations..."
 
-if [ -f /etc/dnsmasq.d/raspilokal.conf ]; then
-    log_info "Removing raspilokal.conf from dnsmasq..."
-    rm /etc/dnsmasq.d/raspilokal.conf
+if [ -f /etc/dnsmasq.d/lokal-hotspot.conf ]; then
+    log_info "Removing lokal-hotspot.conf from dnsmasq..."
+    rm /etc/dnsmasq.d/lokal-hotspot.conf
 fi
 
 if [ -f /etc/nginx/sites-enabled/lokal ]; then
@@ -84,7 +84,6 @@ fi
 log_info "================================================="
 log_info "  Revert Complete!"
 log_info "================================================="
-log_info "  - Nginx/Dnsmasq proxy for raspilokal.com removed."
 log_info "  - Network interface $INTERFACE set back to DHCP."
 log_info "================================================="
 log_info "  NOTE: Your IP address will likely change soon."

@@ -214,30 +214,20 @@ sudo cp /tmp/lokal.service /etc/systemd/system/lokal.service
 sudo systemctl daemon-reload
 sudo systemctl enable lokal
 
-# Setup Wi-Fi Hotspot (Standalone mode)
-log_info "Setting up Wi-Fi Hotspot..."
-sudo bash "$INSTALL_DIR/deployment/setup_hotspot.sh" || log_warn "Hotspot setup failed, skipping..."
+# Make start script executable
+chmod +x start_lokal.sh
 
-# Setup Desktop Launcher and Autostart
-log_info "Setting up Desktop Launcher and Autostart..."
-sudo bash "$INSTALL_DIR/deployment/setup_autostart.sh" || log_warn "Autostart setup failed, skipping..."
-
-# Final Summary
 log_info "============================================"
-log_info "     Installation & Setup Complete!"
+log_info "Installation complete!"
 log_info "============================================"
 log_info ""
-log_info "Project Directory: $INSTALL_DIR"
-log_info "IP Address:        192.168.4.1"
-log_info "Hotspot SSID:      LoKal-AI-Hotspot"
+log_info "Installation directory: $INSTALL_DIR"
 log_info ""
-log_info "Access the application:"
-log_info "1. Connect your device to the 'LoKal-AI-Hotspot' Wi-Fi."
-log_info "2. Open your browser and go to:"
-log_info "   https://192.168.4.1:8000"
+log_info "Next steps:"
+log_info "1. Start the service: sudo systemctl start lokal"
+log_info "2. Check status: sudo systemctl status lokal"
+log_info "3. Or run directly: ./start_lokal.sh"
 log_info ""
-log_info "On the Raspberry Pi Desktop:"
-log_info "- Double-click the 'LoKal' icon to start."
-log_info "- The system is also set to start on boot."
+log_info "Test the API:"
+log_info "  curl http://localhost:8000/api/health/"
 log_info ""
-log_info "============================================"

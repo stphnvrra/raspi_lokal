@@ -6,35 +6,50 @@ echo "-------------------------------------------------"
 echo "  LoKal Launcher Setup"
 echo "-------------------------------------------------"
 
-# 1. Make start script executable
-if [ -f "/home/lokal/Desktop/loKal/start_lokal.sh" ]; then
-    chmod +x /home/lokal/Desktop/loKal/start_lokal.sh
+# 1. Configuration
+PROJECT_DIR="/home/lokal/Desktop/loKal"
+DESKTOP_DIR="/home/lokal/Desktop"
+DESKTOP_FILE="$DESKTOP_DIR/LoKal.desktop"
+ICON_PATH="$PROJECT_DIR/static/img/logo.png"
+START_SCRIPT="$PROJECT_DIR/start_lokal.sh"
+
+# 2. Make start script executable
+if [ -f "$START_SCRIPT" ]; then
+    chmod +x "$START_SCRIPT"
     echo "✓ Made start_lokal.sh executable"
 else
-    echo "⚠ start_lokal.sh not found at /home/lokal/Desktop/loKal/"
+    echo "⚠ start_lokal.sh not found at $START_SCRIPT"
 fi
 
-# 2. Copy and Trust Desktop file
-if [ -d "/home/lokal/Desktop" ]; then
-    echo "Configuring Desktop shortcut..."
+# 3. Create Desktop file
+if [ -d "$DESKTOP_DIR" ]; then
+    echo "Creating Desktop shortcut..."
     
-    # Sanitize the file (remove Windows line endings just in case)
-    sed 's/\r$//' /home/lokal/Desktop/loKal/LoKal.desktop > /home/lokal/Desktop/LoKal.desktop
+    cat > "$DESKTOP_FILE" << EOF
+[Desktop Entry]
+Name=LoKal
+Comment=Start LoKal Educational AI
+Exec=$START_SCRIPT
+Icon=$ICON_PATH
+Terminal=true
+Type=Application
+Categories=Education;Development;
+EOF
     
     # Set permissions
-    chmod +x /home/lokal/Desktop/LoKal.desktop
+    chmod +x "$DESKTOP_FILE"
     
     # Mark as trusted (Required for Raspberry Pi OS Bookworm/LXDE)
     if command -v gio >/dev/null 2>&1; then
         echo "Marking desktop file as trusted..."
-        gio set /home/lokal/Desktop/LoKal.desktop metadata::trusted true || true
+        gio set "$DESKTOP_FILE" metadata::trusted true || true
     fi
     
     # Optional: Also copy to Applications menu
     mkdir -p /home/lokal/.local/share/applications/
-    cp /home/lokal/Desktop/LoKal.desktop /home/lokal/.local/share/applications/
+    cp "$DESKTOP_FILE" /home/lokal/.local/share/applications/
     
-    echo "✓ LoKal shortcut added to Desktop and Menu"
+    echo "✓ LoKal shortcut created on Desktop and Menu"
 else
     echo "⚠ Desktop directory not found. Shortcut skipped."
 fi

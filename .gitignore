@@ -1,1 +1,24 @@
+# Virtual environment
 venv/
+
+# Django
+db.sqlite3
+*.log
+staticfiles/
+media/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# SSL Certificates
+certs/
+
+# IDE and OS
+.DS_Store
+.idea/
+.vscode/
+
+# Local env
+.env

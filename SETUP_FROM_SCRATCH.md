@@ -59,7 +59,7 @@ sudo ./deployment/setup_hotspot.sh
 ```
 *   **Result**: Pi broadcasts `LoKal-AI-Hotspot`.
 *   **Connection**: Join the Wi-Fi using password `lokal1234`.
-*   **Browse**: Go to `http://raspilokal.com` (no extra setup needed!).
+*   **Browse**: Go to `https://192.168.4.1:8000` (Click "Advanced" -> "Proceed").
 
 ### Option B: Existing Router Mode (Advanced)
 Use this if you want the Pi to stay connected to your current Wi-Fi router.
@@ -76,7 +76,7 @@ Use this if you want the Pi to stay connected to your current Wi-Fi router.
 3. **Configure Devices**:
    - Join your router's Wi-Fi.
    - Set your phone's **DNS** to **Manual** and enter the **Pi's IP address**.
-   - Browse: `http://raspilokal.com`
+   - Browse: `https://192.168.4.1:8000`
 
 ---
 
@@ -100,7 +100,7 @@ Once setup is complete, you don't need to use the terminal anymore!
 2. **Double-Click**: It will automatically:
    - Start the **Ollama** AI service.
    - Start the **LoKal Backend** (Django).
-   - Open **Chromium** in full-screen (kiosk) mode at `http://raspilokal.com`.
+   - Open **Chromium** in full-screen (kiosk) mode at `https://localhost:8000`.
 
 ---
 
