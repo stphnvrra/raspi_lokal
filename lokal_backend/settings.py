@@ -73,7 +73,7 @@ WSGI_APPLICATION = 'lokal_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'lokal.sqlite3',
         'OPTIONS': {
             'timeout': 20,  # Increase timeout for SD card I/O
         }
