@@ -17,6 +17,9 @@ soundfile>=0.12.1
 # Production server
 gunicorn>=21.2.0
 
+# Static files for production
+whitenoise>=6.5.0
+
 # Environment variables
 python-dotenv>=1.0.0
 
