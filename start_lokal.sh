@@ -81,7 +81,7 @@ fi
 
 # ── Open Chromium browser ──
 echo "Opening browser to $LOCAL_URL ..."
-BROWSER_FLAGS="--kiosk --ignore-certificate-errors --no-first-run --disable-translate"
+BROWSER_FLAGS="--kiosk --no-first-run --disable-translate --disable-background-networking --disable-sync --log-level=3"
 
 if command -v chromium-browser &> /dev/null; then
     chromium-browser $BROWSER_FLAGS "$LOCAL_URL" &
