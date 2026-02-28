@@ -48,12 +48,13 @@ fi
 URL="http://${LOKAL_IP}:8000"
 
 # ── Wait for the server to actually respond ──
-echo "Waiting for server to be ready at $URL ..."
+CHECK_URL="http://127.0.0.1:8000"
+echo "Waiting for server to be ready at $CHECK_URL ..."
 MAX_WAIT=60
 WAITED=0
 while [ $WAITED -lt $MAX_WAIT ]; do
     # Use curl to check if the server is responding (ignore SSL errors for self-signed cert)
-    if curl -sk --connect-timeout 2 "$URL" >/dev/null 2>&1; then
+    if curl -sk --connect-timeout 2 "$CHECK_URL" >/dev/null 2>&1; then
         echo "✓ Server is ready!"
         break
     fi
