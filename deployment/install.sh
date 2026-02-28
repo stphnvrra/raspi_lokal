@@ -190,6 +190,20 @@ else
 fi
 cd "$INSTALL_DIR"
 
+# Generate SSL certificates for HTTPS (required for microphone access on client devices)
+log_info "Generating SSL certificates..."
+mkdir -p "$INSTALL_DIR/certs"
+if [ ! -f "$INSTALL_DIR/certs/cert.pem" ] || [ ! -f "$INSTALL_DIR/certs/key.pem" ]; then
+    openssl req -x509 -newkey rsa:2048 \
+        -keyout "$INSTALL_DIR/certs/key.pem" \
+        -out "$INSTALL_DIR/certs/cert.pem" \
+        -days 365 -nodes \
+        -subj "/C=PH/ST=MetroManila/L=Manila/O=LoKal/OU=Education/CN=192.168.4.1" 2>/dev/null
+    log_info "SSL certificates generated."
+else
+    log_info "SSL certificates already exist, skipping..."
+fi
+
 # Setup systemd service (update paths for current user)
 log_info "Setting up systemd service..."
 cat > /tmp/lokal.service << EOF
