@@ -35,45 +35,17 @@ fi
 echo "Activating Python environment..."
 source venv/bin/activate
 
-# Determine protocol and start server if needed
-USE_HTTPS=false
-
+# Start server if systemd is not handling it
 if systemctl is-active --quiet lokal; then
     echo "LoKal service is already running via systemd."
-    USE_HTTPS=true
 else
     echo "Starting LoKal server manually..."
-
-    # Ensure certs directory exists
-    mkdir -p certs
-
-    # Generate self-signed certificate if not present
-    if [ ! -f "certs/cert.pem" ] || [ ! -f "certs/key.pem" ]; then
-        echo "Generating SSL certificates..."
-        openssl req -x509 -newkey rsa:2048 -keyout certs/key.pem -out certs/cert.pem \
-            -days 365 -nodes \
-            -subj "/C=PH/ST=MetroManila/L=Manila/O=LoKal/OU=Education/CN=$LOKAL_IP" 2>/dev/null || true
-    fi
-
-    # Start the server
-    if [ -f "certs/cert.pem" ] && [ -f "certs/key.pem" ]; then
-        echo "Starting in HTTPS mode..."
-        python manage.py runsslserver --certificate certs/cert.pem --key certs/key.pem 0.0.0.0:8000 &
-        USE_HTTPS=true
-    else
-        echo "Starting in HTTP mode..."
-        python manage.py runserver 0.0.0.0:8000 &
-        USE_HTTPS=false
-    fi
+    python manage.py runserver 0.0.0.0:8000 &
     SERVER_PID=$!
 fi
 
-# Build the URL using the actual RPi IP
-if [ "$USE_HTTPS" = true ]; then
-    URL="https://${LOKAL_IP}:8000"
-else
-    URL="http://${LOKAL_IP}:8000"
-fi
+# URL is always HTTP
+URL="http://${LOKAL_IP}:8000"
 
 # ── Wait for the server to actually respond ──
 echo "Waiting for server to be ready at $URL ..."

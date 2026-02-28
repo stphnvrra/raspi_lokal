@@ -1,19 +1,10 @@
 """
 Gunicorn configuration optimized for Raspberry Pi 4B (4GB RAM).
-HTTPS enabled for microphone access on client devices.
 """
 import multiprocessing
-import os
-
-# Project directory (one level up from deployment/)
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Bind to all interfaces on port 8000
 bind = "0.0.0.0:8000"
-
-# SSL Certificates (required for mic access on client devices)
-certfile = os.path.join(PROJECT_DIR, "certs", "cert.pem")
-keyfile = os.path.join(PROJECT_DIR, "certs", "key.pem")
 
 # Workers: For Pi 4 with 4GB RAM, use 2 workers
 # Formula: (2 x CPU cores) + 1, but limited for memory
