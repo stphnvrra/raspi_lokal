@@ -7,7 +7,7 @@ Type=simple
 User=lokal
 Group=lokal
 WorkingDirectory=/home/lokal/Desktop/loKal
-Environment="PATH=/home/lokal/Desktop/loKal/venv/bin"
+Environment="PATH=/home/lokal/Desktop/loKal/venv/bin:/usr/local/bin:/usr/bin:/bin"
 ExecStart=/home/lokal/Desktop/loKal/venv/bin/gunicorn --config /home/lokal/Desktop/loKal/deployment/gunicorn.conf.py lokal_backend.wsgi:application
 Restart=always
 RestartSec=10

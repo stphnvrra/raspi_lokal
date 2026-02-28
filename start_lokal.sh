@@ -35,26 +35,27 @@ fi
 echo "Activating Python environment..."
 source venv/bin/activate
 
-# Start server if systemd is not handling it
+# URLs
+URL="http://${LOKAL_IP}:8000"
+LOCAL_URL="http://127.0.0.1:8000"
+CHECK_URL="http://127.0.0.1:8000"
+
+# ── Start the server ──
 if systemctl is-active --quiet lokal; then
-    echo "LoKal service is already running via systemd."
+    echo "LoKal systemd service detected. Restarting to pick up latest config..."
+    sudo systemctl restart lokal
+    sleep 3
 else
     echo "Starting LoKal server manually..."
     python manage.py runserver 0.0.0.0:8000 &
     SERVER_PID=$!
 fi
 
-# URLs
-URL="http://${LOKAL_IP}:8000"
-LOCAL_URL="http://127.0.0.1:8000"
-
 # ── Wait for the server to actually respond ──
-CHECK_URL="http://127.0.0.1:8000"
 echo "Waiting for server to be ready at $CHECK_URL ..."
-MAX_WAIT=60
+MAX_WAIT=30
 WAITED=0
 while [ $WAITED -lt $MAX_WAIT ]; do
-    # Use curl to check if the server is responding
     if curl -sk --connect-timeout 2 "$CHECK_URL" >/dev/null 2>&1; then
         echo "✓ Server is ready!"
         break
@@ -64,8 +65,18 @@ while [ $WAITED -lt $MAX_WAIT ]; do
     echo "  Still waiting... (${WAITED}s / ${MAX_WAIT}s)"
 done
 
+# If systemd failed, fall back to manual server
 if [ $WAITED -ge $MAX_WAIT ]; then
-    echo "⚠ Server did not respond within ${MAX_WAIT}s. Opening browser anyway..."
+    echo "⚠ Server not responding. Stopping systemd and starting manually..."
+    sudo systemctl stop lokal 2>/dev/null || true
+    python manage.py runserver 0.0.0.0:8000 &
+    SERVER_PID=$!
+    sleep 5
+    if curl -sk --connect-timeout 2 "$CHECK_URL" >/dev/null 2>&1; then
+        echo "✓ Server is ready (manual mode)!"
+    else
+        echo "⚠ Server still not responding. Opening browser anyway..."
+    fi
 fi
 
 # ── Open Chromium browser ──
