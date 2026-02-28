@@ -54,7 +54,9 @@ ROOT_URLCONF = 'lokal_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,6 +134,9 @@ CORS_ALLOW_CREDENTIALS = True  # Allow cookies for session auth
 CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://192.168.4.1:8000', 'https://localhost:8000', 'https://127.0.0.1:8000', 'https://192.168.4.1:8000']
 CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SAMESITE = 'Lax'
+
+# SSL settings
+SECURE_SSL_REDIRECT = False  # Don't force redirect - gunicorn handles HTTPS directly
 
 # ========================
 # LoKal-specific settings
