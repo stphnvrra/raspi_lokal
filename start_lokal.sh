@@ -44,8 +44,9 @@ else
     SERVER_PID=$!
 fi
 
-# URL is always HTTP
+# URLs
 URL="http://${LOKAL_IP}:8000"
+LOCAL_URL="http://127.0.0.1:8000"
 
 # ── Wait for the server to actually respond ──
 CHECK_URL="http://127.0.0.1:8000"
@@ -53,7 +54,7 @@ echo "Waiting for server to be ready at $CHECK_URL ..."
 MAX_WAIT=60
 WAITED=0
 while [ $WAITED -lt $MAX_WAIT ]; do
-    # Use curl to check if the server is responding (ignore SSL errors for self-signed cert)
+    # Use curl to check if the server is responding
     if curl -sk --connect-timeout 2 "$CHECK_URL" >/dev/null 2>&1; then
         echo "✓ Server is ready!"
         break
@@ -68,22 +69,23 @@ if [ $WAITED -ge $MAX_WAIT ]; then
 fi
 
 # ── Open Chromium browser ──
-echo "Opening browser to $URL ..."
+echo "Opening browser to $LOCAL_URL ..."
 BROWSER_FLAGS="--kiosk --ignore-certificate-errors --no-first-run --disable-translate"
 
 if command -v chromium-browser &> /dev/null; then
-    chromium-browser $BROWSER_FLAGS "$URL" &
+    chromium-browser $BROWSER_FLAGS "$LOCAL_URL" &
 elif command -v chromium &> /dev/null; then
-    chromium $BROWSER_FLAGS "$URL" &
+    chromium $BROWSER_FLAGS "$LOCAL_URL" &
 else
-    echo "⚠ Chromium not found. Please open $URL manually."
+    echo "⚠ Chromium not found. Please open $LOCAL_URL manually."
 fi
 
 echo ""
 echo "======================================"
 echo "  LoKal is running!"
 echo "======================================"
-echo "  URL: $URL"
+echo "  Local URL (this Pi): $LOCAL_URL"
+echo "  Hotspot URL (others): $URL"
 echo "  Press Ctrl+C to stop."
 echo "======================================"
 echo ""
